@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OptionsParserTest {
+class
+OptionsParserTest {
     @Test
     public void testArrayToEnum(){
         String[] args = new String[]{"f", "b", "r", "l"};
