@@ -20,10 +20,15 @@ public class Animal {
 
     @Override
     public String toString(){
-        return String.valueOf(position) + ", " + String.valueOf(orientation);
+        return switch (orientation){
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case WEST -> "W";
+            case EAST -> "E";
+        };
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator validator) {
         switch (direction) {
             case RIGHT -> orientation = orientation.next();
             case LEFT -> orientation = orientation.previous();
@@ -34,7 +39,7 @@ public class Animal {
                     case WEST -> Objects.equals(direction, MoveDirection.BACKWARD) ? new Vector2d(1, 0) : new Vector2d(-1, 0);
                     case EAST -> Objects.equals(direction, MoveDirection.BACKWARD) ? new Vector2d(-1, 0) : new Vector2d(1, 0);
                 };
-                if (position.add(move_vector).follows(new Vector2d(0, 0)) && position.add(move_vector).precedes(new Vector2d(4, 4))){
+                if (validator.canMoveTo(position.add(move_vector))){
                     position = position.add(move_vector);
                 }
             }

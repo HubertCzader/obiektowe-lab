@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MapDirection;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +13,8 @@ class SimulationTest {
         String[] args = new String[]{"f", "b", "b", "r", "l"};
         List<MoveDirection> directions = OptionsParser.argsToEnum(args);
         List<Vector2d> positions = List.of(new Vector2d(3,4), new Vector2d(3,4), new Vector2d(0,0));
-        Simulation simulation = new Simulation(positions, directions);
+        RectangularMap map = new RectangularMap(4, 5);
+        Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
         List<Animal> animals = simulation.animals;
         assertEquals(animals.get(0).position, new Vector2d(3, 4));
