@@ -4,30 +4,32 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RectangularMapTest {
+class GrassFieldTest {
 
-    RectangularMap map = new RectangularMap(4, 4);
+    GrassField map = new GrassField(10);
 
     @Test
     public void testIsOccupied(){
+        map.grass.put(new Vector2d(2, 3), new Grass(new Vector2d(2, 3)));
         map.animals.put(new Vector2d(2, 2), new Animal(new Vector2d(2, 2)));
         assertTrue(map.isOccupied(new Vector2d(2, 2)));
-        assertFalse(map.isOccupied(new Vector2d(3, 3)));
+        assertTrue(map.isOccupied(new Vector2d(2, 3)));
     }
 
     @Test
     public void testPlace(){
-        assertFalse(map.isOccupied(new Vector2d(2, 2)));
-        assertTrue(map.place(new Animal(new Vector2d(2, 2))));
-        assertFalse(map.place(new Animal(new Vector2d(2, 2))));
+        assertTrue(map.place(new Animal(new Vector2d(0, 0))));
+        assertFalse(map.place(new Animal(new Vector2d(0, 0))));
     }
 
     @Test
     public void testObjectAt(){
-        assertNull(map.objectAt(new Vector2d(2, 2)));
-        Animal animal = new Animal(new Vector2d(4, 4));
+        Animal animal = new Animal(new Vector2d(2, 2));
         map.place(animal);
-        assertEquals(map.objectAt(new Vector2d(4, 4)), animal);
+        assertEquals(map.objectAt(new Vector2d(2, 2)), animal);
+        Grass grass = new Grass(new Vector2d(2, 3));
+        map.grass.put(new Vector2d(2, 3), grass);
+        assertEquals(map.objectAt(new Vector2d(2, 3)), grass);
     }
 
     @Test
@@ -35,8 +37,6 @@ class RectangularMapTest {
         Animal animal = new Animal(new Vector2d(1, 1));
         map.place(animal);
         assertFalse(map.canMoveTo(new Vector2d(1, 1)));
-        assertFalse(map.canMoveTo(new Vector2d(5, 4)));
-        assertFalse(map.canMoveTo(new Vector2d(-1, 1)));
         assertTrue(map.canMoveTo(new Vector2d(3, 2)));
     }
 
@@ -47,7 +47,6 @@ class RectangularMapTest {
         map.move(animal, MoveDirection.FORWARD);
         assertEquals(animal.position, new Vector2d(2, 3));
         assertEquals(animal.orientation, MapDirection.NORTH);
-        assertFalse(map.isOccupied(new Vector2d(2, 2)));
         assertTrue(map.isOccupied(new Vector2d(2, 3)));
     }
 
@@ -56,4 +55,5 @@ class RectangularMapTest {
         System.out.println(map);
         assertTrue(true);
     }
+
 }

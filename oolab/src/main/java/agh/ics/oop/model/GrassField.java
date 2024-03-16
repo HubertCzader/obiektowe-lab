@@ -1,0 +1,76 @@
+package agh.ics.oop.model;
+
+import agh.ics.oop.model.util.MapVisualizer;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
+
+public class GrassField extends AbstractWorldMap {
+
+    private final int grass_amount;
+
+    public Map<Vector2d, Grass> grass = new HashMap<>();
+
+    public GrassField(int grass_amount){
+        this.grass_amount = grass_amount;
+        placeGrass();
+    }
+
+    public void placeGrass(){
+        int acc_grass = grass_amount;
+        while (acc_grass > 0){
+            Random rand = new Random();
+            int min = 0;
+            int max = (int) Math.sqrt(grass_amount * 10);
+            Vector2d random_position = new Vector2d(rand.nextInt((max - min) + 1) + min, rand.nextInt((max - min) + 1) + min);
+            if (!isOccupied(random_position)){
+                grass.put(random_position, new Grass(random_position));
+                acc_grass--;
+            }
+        }
+    }
+
+
+    @Override
+    public boolean isOccupied(Vector2d position){
+        return super.isOccupied(position) || grass.containsKey(position);
+    }
+
+
+    @Override
+    public WorldElement objectAt(Vector2d position){
+        if (isOccupied(position)){
+            WorldElement object = super.objectAt(position);
+            if (Objects.equals(object, null)){
+                return grass.get(position);
+            }
+            return object;
+        }
+        return null;
+    }
+
+    @Override
+    public Map<Vector2d, WorldElement> getElements(){
+        Map<Vector2d, WorldElement> mergedMap = super.getElements();
+        mergedMap.putAll(grass);
+        return mergedMap;
+    }
+
+
+    @Override
+    public String toString(){
+        Vector2d lower_left = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        Vector2d upper_right = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        Map<Vector2d, WorldElement> mergedMap = getElements();
+        mergedMap.putAll(grass);
+
+        for(Vector2d key: mergedMap.keySet()){
+            lower_left = lower_left.lowerLeft(key);
+            upper_right = upper_right.upperRight(key);
+        }
+        return new MapVisualizer(this).draw(lower_left, upper_right);
+    }
+
+}
