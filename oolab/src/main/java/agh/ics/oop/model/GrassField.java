@@ -59,18 +59,16 @@ public class GrassField extends AbstractWorldMap {
     }
 
 
-    @Override
-    public String toString(){
+    public Boundary getCurrentBounds(){
         Vector2d lower_left = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
         Vector2d upper_right = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
         Map<Vector2d, WorldElement> mergedMap = getElements();
-        mergedMap.putAll(grass);
 
         for(Vector2d key: mergedMap.keySet()){
             lower_left = lower_left.lowerLeft(key);
             upper_right = upper_right.upperRight(key);
         }
-        return new MapVisualizer(this).draw(lower_left, upper_right);
+        return new Boundary(lower_left, upper_right);
     }
 
 }

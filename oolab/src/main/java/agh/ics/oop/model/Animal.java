@@ -3,8 +3,8 @@ package agh.ics.oop.model;
 import java.util.Objects;
 
 public class Animal implements WorldElement{
-    public MapDirection orientation = MapDirection.NORTH;
-    public Vector2d position;
+    private MapDirection orientation = MapDirection.NORTH;
+    private Vector2d position;
 
     public Animal(){
         this.position = new Vector2d(2, 2);
@@ -20,6 +20,10 @@ public class Animal implements WorldElement{
 
     public Vector2d getPosition() {
         return position;
+    }
+
+    public MapDirection getOrientation(){
+        return orientation;
     }
 
     @Override

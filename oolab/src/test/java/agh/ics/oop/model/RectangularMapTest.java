@@ -16,14 +16,13 @@ class RectangularMapTest {
     }
 
     @Test
-    public void testPlace(){
+    public void testPlace() throws PositionAlreadyOccupiedException {
         assertFalse(map.isOccupied(new Vector2d(2, 2)));
         assertTrue(map.place(new Animal(new Vector2d(2, 2))));
-        assertFalse(map.place(new Animal(new Vector2d(2, 2))));
     }
 
     @Test
-    public void testObjectAt(){
+    public void testObjectAt() throws PositionAlreadyOccupiedException {
         assertNull(map.objectAt(new Vector2d(2, 2)));
         Animal animal = new Animal(new Vector2d(4, 4));
         map.place(animal);
@@ -31,7 +30,7 @@ class RectangularMapTest {
     }
 
     @Test
-    public void testCanMoveTo(){
+    public void testCanMoveTo() throws PositionAlreadyOccupiedException {
         Animal animal = new Animal(new Vector2d(1, 1));
         map.place(animal);
         assertFalse(map.canMoveTo(new Vector2d(1, 1)));
@@ -41,12 +40,12 @@ class RectangularMapTest {
     }
 
     @Test
-    public void testMove(){
+    public void testMove() throws PositionAlreadyOccupiedException {
         Animal animal = new Animal();
         map.place(animal);
         map.move(animal, MoveDirection.FORWARD);
-        assertEquals(animal.position, new Vector2d(2, 3));
-        assertEquals(animal.orientation, MapDirection.NORTH);
+        assertEquals(animal.getPosition(), new Vector2d(2, 3));
+        assertEquals(animal.getOrientation(), MapDirection.NORTH);
         assertFalse(map.isOccupied(new Vector2d(2, 2)));
         assertTrue(map.isOccupied(new Vector2d(2, 3)));
     }

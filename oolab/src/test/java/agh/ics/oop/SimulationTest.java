@@ -17,12 +17,12 @@ class SimulationTest {
         Simulation simulation = new Simulation(positions, directions, map);
         simulation.run();
         List<Animal> animals = simulation.animals;
-        assertEquals(animals.get(0).position, new Vector2d(3, 4));
-        assertEquals(animals.get(0).orientation, MapDirection.EAST);
-        assertEquals(animals.get(1).position, new Vector2d(3, 2));
-        assertEquals(animals.get(1).orientation, MapDirection.WEST);
-        assertEquals(animals.get(2).position, new Vector2d(0, 0));
-        assertEquals(animals.get(2).orientation, MapDirection.NORTH);
+        assertEquals(animals.get(0).getPosition(), new Vector2d(3, 4));
+        assertEquals(animals.get(0).getOrientation(), MapDirection.EAST);
+        assertEquals(animals.get(1).getPosition(), new Vector2d(3, 2));
+        assertEquals(animals.get(1).getOrientation(), MapDirection.WEST);
+        assertEquals(animals.get(2).getPosition(), new Vector2d(0, 0));
+        assertEquals(animals.get(2).getOrientation(), MapDirection.NORTH);
     }
 
 }

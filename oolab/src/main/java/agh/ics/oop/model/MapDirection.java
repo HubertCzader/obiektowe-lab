@@ -16,6 +16,7 @@ public enum MapDirection {
         };
     }
 
+
     public MapDirection next(){
         return switch (this){
             case NORTH -> EAST;

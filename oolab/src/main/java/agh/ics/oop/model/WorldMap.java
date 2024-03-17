@@ -17,9 +17,10 @@ public interface WorldMap extends MoveValidator {
      * Place a animal on the map.
      *
      * @param animal The animal to place on the map.
-     * @return True if the animal was placed. The animal cannot be placed if the move is not valid.
+     * @return True if the animal was placed. The animal cannot be placed if the move is not valid,
+     * then an exception is raised.
      */
-    boolean place(Animal animal);
+    boolean place(Animal animal) throws PositionAlreadyOccupiedException;
 
     /**
      * Moves an animal (if it is present on the map) according to specified direction.
@@ -45,5 +46,10 @@ public interface WorldMap extends MoveValidator {
      */
     WorldElement objectAt(Vector2d position);
 
-//    Map<Vector2d, WorldElement> getElements();
+    /**
+     * Return a boundary of the map.
+     *
+     * @return boundary of the map.
+     */
+    Boundary getCurrentBounds();
 }

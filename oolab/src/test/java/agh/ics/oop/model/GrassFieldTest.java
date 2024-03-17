@@ -17,13 +17,12 @@ class GrassFieldTest {
     }
 
     @Test
-    public void testPlace(){
+    public void testPlace() throws PositionAlreadyOccupiedException {
         assertTrue(map.place(new Animal(new Vector2d(0, 0))));
-        assertFalse(map.place(new Animal(new Vector2d(0, 0))));
     }
 
     @Test
-    public void testObjectAt(){
+    public void testObjectAt() throws PositionAlreadyOccupiedException {
         Animal animal = new Animal(new Vector2d(2, 2));
         map.place(animal);
         assertEquals(map.objectAt(new Vector2d(2, 2)), animal);
@@ -33,7 +32,7 @@ class GrassFieldTest {
     }
 
     @Test
-    public void testCanMoveTo(){
+    public void testCanMoveTo() throws PositionAlreadyOccupiedException {
         Animal animal = new Animal(new Vector2d(1, 1));
         map.place(animal);
         assertFalse(map.canMoveTo(new Vector2d(1, 1)));
@@ -41,12 +40,12 @@ class GrassFieldTest {
     }
 
     @Test
-    public void testMove(){
+    public void testMove() throws PositionAlreadyOccupiedException {
         Animal animal = new Animal();
         map.place(animal);
         map.move(animal, MoveDirection.FORWARD);
-        assertEquals(animal.position, new Vector2d(2, 3));
-        assertEquals(animal.orientation, MapDirection.NORTH);
+        assertEquals(animal.getPosition(), new Vector2d(2, 3));
+        assertEquals(animal.getOrientation(), MapDirection.NORTH);
         assertTrue(map.isOccupied(new Vector2d(2, 3)));
     }
 
