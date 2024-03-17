@@ -9,11 +9,12 @@ public class RectangularMap extends AbstractWorldMap{
 
     private final int width;
     private final int height;
+    private final int id;
 
-
-    public RectangularMap(int width, int height){
+    public RectangularMap(int width, int height, int id){
         this.width = width;
         this.height = height;
+        this.id = id;
     }
 
     public int getWidth(){
@@ -27,6 +28,11 @@ public class RectangularMap extends AbstractWorldMap{
     public Boundary getCurrentBounds(){
         return new Boundary(new Vector2d(0, 0), new Vector2d(getWidth(), getHeight()));
     }
+
+    public int getId(){
+        return id;
+    }
+
 
     @Override
     public boolean canMoveTo(Vector2d position){

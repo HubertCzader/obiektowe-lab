@@ -8,6 +8,13 @@ abstract public class AbstractWorldMap implements WorldMap{
     protected Map<Vector2d, WorldElement> animals = new HashMap<>();
     protected List<MapChangeListener> observers = new ArrayList<>();
 
+    private int updates = 0;
+
+    public int getUpdates(){
+        updates++;
+        return updates;
+    }
+
     public boolean isOccupied(Vector2d position){
         return animals.containsKey(position);
     }
@@ -66,5 +73,6 @@ abstract public class AbstractWorldMap implements WorldMap{
         Boundary boundary = getCurrentBounds();
         return new MapVisualizer(this).draw(boundary.lower_left(), boundary.upper_right());
     }
+
 
 }

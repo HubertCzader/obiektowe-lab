@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RectangularMapTest {
 
-    RectangularMap map = new RectangularMap(4, 4);
+    RectangularMap map = new RectangularMap(4, 4, 0);
 
     @Test
     public void testIsOccupied(){

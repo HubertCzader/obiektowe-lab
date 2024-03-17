@@ -1,13 +1,8 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.ConsoleMapDisplay;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.RectangularMap;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class World {
@@ -27,12 +22,39 @@ public class World {
             }
             directions = OptionsParser.argsToEnum((String[]) new_args.toArray());
         }
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        RectangularMap map = new RectangularMap(5, 6);
-        map.attachObserver(new ConsoleMapDisplay());
-        Simulation simulation = new Simulation(positions, directions, map);
-        simulation.run();
+
+        List<Simulation> simulations = generate_simulations(100, directions);
+
+        SimulationEngine simulationEngine = new SimulationEngine(simulations);
+        simulationEngine.runSync();
+        System.out.println();
+        simulationEngine.runAsync();
+        System.out.println();
+        simulationEngine.runAsyncInThreadPool();
+        System.out.println("\nSystem zakończył działanie\n");
     }
+
+
+    public static List<Simulation> generate_simulations(int amount, List<MoveDirection> directions){
+        List <Simulation> simulations = new ArrayList<>();
+        ConsoleMapDisplay monitor = new ConsoleMapDisplay();
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        Random random = new Random();
+        for (int i=0; i<amount; i++){
+            int random_number = random.nextInt(2);
+            AbstractWorldMap map;
+            if (random_number == 0) {
+                map = new RectangularMap(5, 6, i);
+            }
+            else {
+                map = new GrassField(10, i);
+            }
+            map.attachObserver(monitor);
+            simulations.add(new Simulation(positions, directions, map));
+        }
+        return simulations;
+    }
+
 
     public static void run(List<MoveDirection> directions){
         for (MoveDirection direction:directions){

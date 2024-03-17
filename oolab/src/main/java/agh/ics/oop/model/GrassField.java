@@ -10,11 +10,12 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap {
 
     private final int grass_amount;
-
+    private final int id;
     public Map<Vector2d, Grass> grass = new HashMap<>();
 
-    public GrassField(int grass_amount){
+    public GrassField(int grass_amount, int id){
         this.grass_amount = grass_amount;
+        this.id = id;
         placeGrass();
     }
 
@@ -30,6 +31,22 @@ public class GrassField extends AbstractWorldMap {
                 acc_grass--;
             }
         }
+    }
+
+    public Boundary getCurrentBounds(){
+        Vector2d lower_left = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        Vector2d upper_right = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        Map<Vector2d, WorldElement> mergedMap = getElements();
+
+        for(Vector2d key: mergedMap.keySet()){
+            lower_left = lower_left.lowerLeft(key);
+            upper_right = upper_right.upperRight(key);
+        }
+        return new Boundary(lower_left, upper_right);
+    }
+
+    public int getId(){
+        return id;
     }
 
 
@@ -56,19 +73,6 @@ public class GrassField extends AbstractWorldMap {
         Map<Vector2d, WorldElement> mergedMap = super.getElements();
         mergedMap.putAll(grass);
         return mergedMap;
-    }
-
-
-    public Boundary getCurrentBounds(){
-        Vector2d lower_left = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        Vector2d upper_right = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        Map<Vector2d, WorldElement> mergedMap = getElements();
-
-        for(Vector2d key: mergedMap.keySet()){
-            lower_left = lower_left.lowerLeft(key);
-            upper_right = upper_right.upperRight(key);
-        }
-        return new Boundary(lower_left, upper_right);
     }
 
 }

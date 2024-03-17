@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GrassFieldTest {
 
-    GrassField map = new GrassField(10);
+    GrassField map = new GrassField(10, 0);
 
     @Test
     public void testIsOccupied(){

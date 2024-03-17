@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Simulation {
+public class Simulation implements Runnable{
     public final List<Animal> animals;
     private final int animals_amount;
     private final List<MoveDirection> moves;
@@ -25,6 +25,7 @@ public class Simulation {
         }
     }
 
+    @Override
     public void run(){
         for (Animal animal:animals){
             try {
