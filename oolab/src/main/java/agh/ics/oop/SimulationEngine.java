@@ -26,7 +26,7 @@ public class SimulationEngine{
             threads.add(engineThread);
             engineThread.start();
         }
-        awaitSimulationEnd();
+//        awaitSimulationEnd();
     }
 
     public void runAsyncInThreadPool(){

@@ -67,5 +67,12 @@ public interface WorldMap extends MoveValidator {
      * @return int.
      */
     int getUpdates();
+
+    /**
+     * Return map of all objects at map.
+     *
+     * @return Map<Vector2d, WorldElement>.
+     */
+    Map<Vector2d, WorldElement> getElements();
 }
 

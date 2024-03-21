@@ -70,9 +70,15 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Map<Vector2d, WorldElement> getElements(){
-        Map<Vector2d, WorldElement> mergedMap = super.getElements();
-        mergedMap.putAll(grass);
+        Map<Vector2d, WorldElement> mergedMap = new HashMap<>(grass);
+        mergedMap.putAll(super.getElements());
         return mergedMap;
+    }
+
+    @Override
+    public boolean canMoveTo(Vector2d position){
+        Boundary boundary = getCurrentBounds();
+        return super.canMoveTo(position) && position.follows(boundary.lower_left()) && position.precedes(boundary.upper_right());
     }
 
 }

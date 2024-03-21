@@ -46,7 +46,7 @@ abstract public class AbstractWorldMap implements WorldMap{
         if (!old_position.equals(animal.getPosition()) || old_orientation != animal.getOrientation()){
             animals.remove(old_position);
             animals.put(animal.getPosition(), animal);
-            mapChanged("Made action: move animal to position " + animal.getPosition());
+            mapChanged("Made action: move animal from position " + old_position + " to " + animal.getPosition());
         }
     }
 

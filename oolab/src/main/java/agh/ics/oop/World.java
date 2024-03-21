@@ -20,7 +20,7 @@ public class World {
                     new_args.add(argument);
                 }
             }
-            directions = OptionsParser.argsToEnum((String[]) new_args.toArray());
+            directions = OptionsParser.argsToEnum(new_args.toArray(new String[0]));
         }
 
         List<Simulation> simulations = generate_simulations(100, directions);
